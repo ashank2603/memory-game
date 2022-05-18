@@ -53,7 +53,8 @@ function App() {
         resetTurn()
       }
       else{
-        resetTurn()
+        // set the delay for the cards to flip back if they dont match
+        setTimeout(() => resetTurn(), 1000)
       }
     }
   }, [choiceOne, choiceTwo])
@@ -79,6 +80,7 @@ function App() {
           key={card.id} 
           card={card}
           handleChoice = {handleChoice}
+          flipped = {card === choiceOne || card === choiceTwo || card.matched}
           />
         ))}
       </div>
