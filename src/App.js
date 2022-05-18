@@ -4,12 +4,12 @@ import SingleCard from './components/SingleCard';
 
 // Creating an array pointing to the game images
 const cardImages = [
-  { "src": "/images/helmet-1.png" },
-  { "src": "/images/potion-1.png" },
-  { "src": "/images/ring-1.png" },
-  { "src": "/images/scroll-1.png" },
-  { "src": "/images/shield-1.png" },
-  { "src": "/images/sword-1.png" },
+  { "src": "/images/helmet-1.png", matched: false },
+  { "src": "/images/potion-1.png", matched: false },
+  { "src": "/images/ring-1.png", matched: false },
+  { "src": "/images/scroll-1.png", matched: false },
+  { "src": "/images/shield-1.png", matched: false },
+  { "src": "/images/sword-1.png", matched: false },
 ]
 
 function App() {
@@ -39,15 +39,26 @@ function App() {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
-        console.log("Those cards match")
+        //action to be taken if the cards match
+        setCards(prevCards => {
+          return prevCards.map(card => {
+            if (card.src === choiceOne.src) {
+              return {...card, matched: true}
+            } 
+            else {
+              return card
+            }
+          })
+        })
         resetTurn()
       }
       else{
-        console.log("Those cards do not match")
         resetTurn()
       }
     }
   }, [choiceOne, choiceTwo])
+
+  console.log(cards)
 
   //reset choices and increase turn
   const resetTurn = () => {
